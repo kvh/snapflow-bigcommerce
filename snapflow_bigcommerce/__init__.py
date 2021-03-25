@@ -8,7 +8,7 @@ module = SnapflowModule(
     "example",
     py_module_path=__file__,
     py_module_name=__name__,
-    schemas=["schemas/schema.yml"],
-    pipes=[pipe],
+    schemas=["schemas/{example_schema}.yml"],
+    snaps=[],
 )
 module.export()

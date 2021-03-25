@@ -7,12 +7,12 @@ def test():
     g = graph()
 
     # Initial graph
-    orders = g.create_node(
-        {module}.pipes.pipe,
-        config={"config_val": "val"},
+    node1 = g.create_node(
+        {module}.snaps.{snap name},
+        params={"config_val": "val"},
     )
-    output = produce(orders, modules=[{module}])
-    records = output.as_records_list()
+    output = produce(node1, modules=[{module}])
+    records = output.as_records()
     assert len(records) > 0
 
 
