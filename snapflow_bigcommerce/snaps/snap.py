@@ -7,14 +7,15 @@ from snapflow import DataBlock, Snap, SnapContext, Param
 
 
 @dataclass
-class ExampleState:
+class BigcommerceState:
     state_val: str
+    on_conflict: str
 
 
 @Snap(
-    "example_snap",
-    module="{module name}",
-    state_class=ExampleState,
+    "bigcommerce_snap",
+    module="{bigcommerce}",
+    state_class=BigcommerceState,
 )
 @Param("example_api_key", "str")
 def example_snap(

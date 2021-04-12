@@ -1,14 +1,16 @@
 from typing import TypeVar
+
 from snapflow import SnapflowModule
+from .snaps.extract_charges import import_orders
 
-
-ExampleSchema = TypeVar("ExampleSchema")
+BigCommerceOrder = TypeVar("BigCommerceOrder")
 
 module = SnapflowModule(
-    "example",
+    "bigcommerce",
     py_module_path=__file__,
     py_module_name=__name__,
-    schemas=["schemas/{example_schema}.yml"],
-    snaps=[],
+    schemas=["schemas/bigcommerce.yml", ],
+    snaps=[import_orders, ],
+
 )
 module.export()
