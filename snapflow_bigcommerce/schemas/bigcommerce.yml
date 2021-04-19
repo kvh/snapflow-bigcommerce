@@ -1,6 +1,6 @@
-name: BigCommerceRawOrder
+name: BigCommerceOrder
 version: 1
-description: BigCommerce Raw Order Object
+description: BigCommerce Order Object
 unique_on:
   - id
 immutable: false

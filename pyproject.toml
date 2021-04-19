@@ -1,5 +1,5 @@
 [tool.poetry]
-authors = ["Ken Van Haren <kenvanharen@gmail.com>"]
+authors = ["Ken Van Haren <kenvanharen@gmail.com>", "Michał Lech <rootx@rootxnet.com>"]
 description = "Bigcommerce module for Snapflow"
 license = "BSD-3-Clause"
 name = "snapflow-bigcommerce"

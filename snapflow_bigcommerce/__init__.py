@@ -1,7 +1,7 @@
 from typing import TypeVar
 
 from snapflow import SnapflowModule
-from .snaps.extract_charges import import_orders
+from .snaps.import_orders import import_orders
 
 BigCommerceOrder = TypeVar("BigCommerceOrder")
 

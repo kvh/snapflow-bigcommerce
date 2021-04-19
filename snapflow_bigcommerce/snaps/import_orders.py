@@ -66,6 +66,7 @@ def import_orders(ctx: SnapContext) -> RecordsIterator[bigcommerce.BigCommerceOr
                 break
 
             json_resp = resp.json()
+
             assert isinstance(json_resp, list)
 
             yield resp.json()
