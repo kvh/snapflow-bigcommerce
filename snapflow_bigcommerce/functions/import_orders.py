@@ -1,14 +1,16 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, date
 from http import HTTPStatus
+from typing import Iterator
+
+from dcp.data_format import Records
+from dcp.utils.common import ensure_datetime, utcnow
 
 import snapflow_bigcommerce as bigcommerce
-from snapflow import SnapContext, Param, Snap
+from snapflow import Function, FunctionContext
 from snapflow.helpers.connectors.connection import HttpApiConnection
-from snapflow.storage.data_formats import RecordsIterator
-from snapflow.utils.common import ensure_datetime, utcnow
 
 BIGCOMMERCE_API_BASE_URL = "https://api.bigcommerce.com/stores/"
 ENTRIES_PER_PAGE = 250
@@ -19,22 +21,20 @@ class ImportBigCommerceOrdersState:
     latest_imported_at: datetime
 
 
-@Snap(
+@Function(
     "import_orders",
-    module="bigcommerce",
+    namespace="bigcommerce",
     state_class=ImportBigCommerceOrdersState,
     display_name="Import BigCommerce orders",
 )
-@Param("store_id", "str")
-@Param("api_key", "str")
-@Param("from_date", "date", default=None)
-@Param("to_date", "date", default=None)
-def import_orders(ctx: SnapContext) -> RecordsIterator[bigcommerce.BigCommerceOrder]:
-    api_key = ctx.get_param("api_key")
-    store_id = ctx.get_param("store_id")
-    from_date = ctx.get_param("from_date")
-    to_date = ctx.get_param("to_date")
+def import_orders(
+        ctx: FunctionContext,
+        api_key: str,
+        store_id: str,
+        from_date: date = None,
+        to_date: date = None
 
+) -> Iterator[Records[bigcommerce.BigCommerceOrder]]:
     params = {
         "limit": ENTRIES_PER_PAGE,
         "min_date_created": from_date,
