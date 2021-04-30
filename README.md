@@ -26,7 +26,7 @@ nodes:
 env = Environment(
     modules=[bigcommerce, ],
 )
-run(g, env=env, node_timelimit_seconds=1)
+run(g, env=env, execution_timelimit_seconds=1)
 
 # Get the final output block
 with env.md_api.begin():

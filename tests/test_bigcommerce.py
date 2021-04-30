@@ -21,18 +21,11 @@ def run_test_bigcommerce(api_key, store_id):
     # Initial graph
     get_orders = g.create_node(
         snapflow_bigcommerce.functions.import_orders,
-        params={
-            "api_key": api_key,
-            "store_id": store_id,
-        },
+        params={"api_key": api_key, "store_id": store_id,},
     )
 
-    output = env.produce(
-        get_orders,
-        g,
-    )
-    records = output.as_records()
-    assert len(records) > 0
+    blocks = env.produce(get_orders, g, execution_timelimit_seconds=5,)
+    assert len(blocks[0].as_records()) > 0
 
 
 if __name__ == "__main__":
@@ -40,7 +33,6 @@ if __name__ == "__main__":
     store_id = input("Enter BigCommerce Store ID: ")
 
     test_bigcommerce(
-        api_key=api_key,
-        store_id=store_id,
+        api_key=api_key, store_id=store_id,
     )
 
