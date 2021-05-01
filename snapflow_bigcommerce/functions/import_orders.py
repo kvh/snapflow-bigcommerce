@@ -38,6 +38,7 @@ def import_orders(
         "limit": ENTRIES_PER_PAGE,
         "min_date_created": from_date,
         "max_date_created": to_date,
+        "sort": "date_modified:asc",
     }
     latest_modified_date_imported = ctx.get_state_value("latest_updated_at")
     latest_modified_date_imported = ensure_datetime(latest_modified_date_imported)
