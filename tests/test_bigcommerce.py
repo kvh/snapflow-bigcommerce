@@ -65,4 +65,5 @@ def test_bigcommerce_order_products():
 
 if __name__ == "__main__":
     test_bigcommerce_orders()
+    test_bigcommerce_order_products()
 

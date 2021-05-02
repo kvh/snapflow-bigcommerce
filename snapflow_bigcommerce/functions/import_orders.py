@@ -40,11 +40,11 @@ def import_orders(
         "max_date_created": to_date,
         "sort": "date_modified:asc",
     }
-    latest_modified_date_imported = ctx.get_state_value("latest_updated_at")
+    latest_modified_date_imported = ctx.get_state_value("latest_modified_date_imported")
     latest_modified_date_imported = ensure_datetime(latest_modified_date_imported)
 
     if latest_modified_date_imported:
-        params["min_date_created"] = latest_modified_date_imported
+        params["min_date_modified"] = latest_modified_date_imported
 
     page = 1
     while ctx.should_continue():
@@ -69,6 +69,6 @@ def import_orders(
         )
         yield json_resp
         ctx.emit_state_value(
-            "latest_modified_date_imported", latest_modified_date_imported
+            "latest_modified_date_imported", latest_modified_date_imported,
         )
         page += 1

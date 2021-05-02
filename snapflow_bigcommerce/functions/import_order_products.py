@@ -39,11 +39,11 @@ def import_order_products(
         "max_date_created": to_date,
         "sort": "date_modified:asc",
     }
-    latest_modified_date_imported = ctx.get_state_value("latest_updated_at")
+    latest_modified_date_imported = ctx.get_state_value("latest_modified_date_imported")
     latest_modified_date_imported = ensure_datetime(latest_modified_date_imported)
 
     if latest_modified_date_imported:
-        params["min_date_created"] = latest_modified_date_imported
+        params["min_date_modified"] = latest_modified_date_imported
 
     page = 1
     while ctx.should_continue():
@@ -65,7 +65,7 @@ def import_order_products(
 
         order_products = []
         for order in json_resp:
-            resp = HttpApiConnection().get(
+            resp = HttpApiConnection(ratelimit_params=dict(calls=150, period=30)).get(
                 url=f"{BIGCOMMERCE_API_BASE_URL}{store_id}/v2/orders/{order['id']}/products",
                 params={"limit": ENTRIES_PER_PAGE},
                 headers={"X-Auth-Token": api_key, "Accept": "application/json",},
