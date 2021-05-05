@@ -65,7 +65,7 @@ def import_order_products(
 
         order_products = []
         for order in json_resp:
-            resp = HttpApiConnection(ratelimit_params=dict(calls=100, period=30)).get(
+            resp = HttpApiConnection(ratelimit_params=dict(calls=30, period=10)).get(
                 url=f"{BIGCOMMERCE_API_BASE_URL}{store_id}/v2/orders/{order['id']}/products",
                 params={"limit": ENTRIES_PER_PAGE},
                 headers={"X-Auth-Token": api_key, "Accept": "application/json",},
